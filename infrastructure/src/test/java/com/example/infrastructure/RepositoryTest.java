@@ -1,9 +1,9 @@
 package com.example.infrastructure;
 
-import com.example.domain.requestcount.domain.RequestCount;
-import com.example.domain.requestcount.infrastructure.RequestCountRepository;
-import com.example.infrastructure.jparepository.RequestCountEntity;
-import com.example.infrastructure.jparepository.RequestCountJpaRepository;
+import com.example.domain.statistic.domain.Statistic;
+import com.example.domain.statistic.infrastructure.StatisticRepository;
+import com.example.infrastructure.jparepository.StatisticEntity;
+import com.example.infrastructure.jparepository.StatisticJpaRepository;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,34 +21,34 @@ import java.util.Optional;
 @DataJpaTest
 @AutoConfigureEmbeddedDatabase
 @ActiveProfiles({"test"})
-public class RepositoryTest {
+class RepositoryTest {
     private static final String USER_LOGIN = "testUser";
     private static final String USER_LOGIN_NOT_PRESENT = "new user";
 
     @Autowired
-    RequestCountRepository requestCountRepository;
+    StatisticRepository statisticRepository;
 
     @Autowired
-    RequestCountJpaRepository jpaRepository;
+    StatisticJpaRepository jpaRepository;
 
     @BeforeEach
     void setUp() {
-        RequestCountEntity requestCountEntity = new RequestCountEntity();
-        requestCountEntity.setUserLogin(USER_LOGIN);
-        requestCountEntity.setCountOfRequests(1L);
-        jpaRepository.save(requestCountEntity);
+        StatisticEntity statisticEntity = new StatisticEntity();
+        statisticEntity.setUserLogin(USER_LOGIN);
+        statisticEntity.setCountOfRequests(1L);
+        jpaRepository.save(statisticEntity);
 
     }
 
     @Test
     void shouldWorkIfNotPresent() {
-        Optional<RequestCount> result = requestCountRepository.findRequestCountByLoginName(USER_LOGIN_NOT_PRESENT);
+        Optional<Statistic> result = statisticRepository.findRequestCountByLoginName(USER_LOGIN_NOT_PRESENT);
         assertThat(result).isNotPresent();
     }
 
     @Test
     void shouldFindRecordByUserLogin() {
-        Optional<RequestCount> result = requestCountRepository.findRequestCountByLoginName(USER_LOGIN);
+        Optional<Statistic> result = statisticRepository.findRequestCountByLoginName(USER_LOGIN);
         assertThat(result).isPresent();
         assertThat(result.get().getLoginName()).isEqualTo(USER_LOGIN);
         assertThat(result.get().getCountOfRequests()).isEqualTo(1L);
@@ -58,8 +58,8 @@ public class RepositoryTest {
 
     @Test
     void shouldReturnExceptionIfSaveTheRequestCountThatExists() {
-        RequestCount requestCount = new RequestCount(USER_LOGIN) ;
-        Throwable throwable = catchThrowable(() -> requestCountRepository.saveOrUpdateRequestCount(requestCount));
+        Statistic statistic = new Statistic(USER_LOGIN) ;
+        Throwable throwable = catchThrowable(() -> statisticRepository.saveOrUpdateRequestCount(statistic));
         assertThat(throwable)
                 .isNotNull()
                 .isInstanceOf(DataIntegrityViolationException.class);
@@ -68,10 +68,10 @@ public class RepositoryTest {
 
     @Test
     void shouldUpdateIfRecordExists() {
-        RequestCount requestCount = requestCountRepository.findRequestCountByLoginName(USER_LOGIN).get();
-        requestCount.addRequestToCount();
-        requestCountRepository.saveOrUpdateRequestCount(requestCount);
-        Optional<RequestCountEntity> requestCountEntity = jpaRepository.findByUserLogin(USER_LOGIN);
+        Statistic statistic = statisticRepository.findRequestCountByLoginName(USER_LOGIN).get();
+        statistic.addRequestToCount();
+        statisticRepository.saveOrUpdateRequestCount(statistic);
+        Optional<StatisticEntity> requestCountEntity = jpaRepository.findByUserLogin(USER_LOGIN);
         assertThat(requestCountEntity).isPresent();
         assertThat(requestCountEntity.get().getUserLogin()).isEqualTo(USER_LOGIN);
         assertThat(requestCountEntity.get().getCountOfRequests()).isEqualTo(2L);
@@ -79,9 +79,9 @@ public class RepositoryTest {
 
     @Test
     void shouldCreateRecordIfIdIsNull() {
-        RequestCount requestCount = new RequestCount(USER_LOGIN_NOT_PRESENT);
-        requestCountRepository.saveOrUpdateRequestCount(requestCount);
-        Optional<RequestCountEntity> requestCountEntity = jpaRepository.findByUserLogin(USER_LOGIN_NOT_PRESENT);
+        Statistic statistic = new Statistic(USER_LOGIN_NOT_PRESENT);
+        statisticRepository.saveOrUpdateRequestCount(statistic);
+        Optional<StatisticEntity> requestCountEntity = jpaRepository.findByUserLogin(USER_LOGIN_NOT_PRESENT);
         assertThat(requestCountEntity).isPresent();
         assertThat(requestCountEntity.get().getUserLogin()).isEqualTo(USER_LOGIN_NOT_PRESENT);
         assertThat(requestCountEntity.get().getCountOfRequests()).isEqualTo(1L);

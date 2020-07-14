@@ -1,6 +1,5 @@
 package com.example.infrastructure.jparepository;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,8 +9,8 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@Table(name = "requests_count")
-public class RequestCountEntity {
+@Table(name = "statistic")
+public class StatisticEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,7 +28,7 @@ public class RequestCountEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RequestCountEntity that = (RequestCountEntity) o;
+        StatisticEntity that = (StatisticEntity) o;
         return countOfRequests == that.countOfRequests &&
                 id.equals(that.id) &&
                 userLogin.equals(that.userLogin);

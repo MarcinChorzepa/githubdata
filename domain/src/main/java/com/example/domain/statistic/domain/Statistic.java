@@ -1,4 +1,4 @@
-package com.example.domain.requestcount.domain;
+package com.example.domain.statistic.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,18 +7,18 @@ import lombok.Getter;
 @Getter
 @Builder
 @AllArgsConstructor
-public class RequestCount {
+public class Statistic {
 
     private Long id;
     private String loginName;
     private long countOfRequests;
 
-    public RequestCount(String loginName) {
+    public Statistic(String loginName) {
         this.loginName = loginName;
         this.countOfRequests = 1L;
     }
 
-    public RequestCount addRequestToCount() {
+    public Statistic addRequestToCount() {
         this.countOfRequests ++;
         return this;
     }
