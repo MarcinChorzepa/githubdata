@@ -13,10 +13,13 @@ public class RequestStatsApi {
     private final RequestStatsRepository requestStatsRepository;
 
     @Transactional
-    public void saveStatisticsInDB(String loginName) throws RequestStatsException {
-        RequestStats requestStats = requestStatsRepository.findRequestCountByLoginName(loginName)
-                .orElse(new RequestStats(loginName));
-        requestStats.addRequestToCount();
-        requestStatsRepository.saveOrUpdateRequestCount(requestStats);
+    public synchronized void saveStatisticsInDB(String loginName) {
+        requestStatsRepository.saveOrUpdateStats(loginName);
+    }
+
+    @Transactional
+    public RequestStats getStatsByLoginName(String loginName) throws RequestStatsException {
+        return requestStatsRepository.getStatsByLoginName(loginName)
+                .orElseThrow(() -> new RequestStatsException("Record does not exists"));
     }
 }

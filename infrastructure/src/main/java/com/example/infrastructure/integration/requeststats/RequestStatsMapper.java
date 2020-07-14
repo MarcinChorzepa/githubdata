@@ -14,18 +14,4 @@ public class RequestStatsMapper {
                 requestStatsEntity.getUserLogin(),
                 requestStatsEntity.getCountOfRequests());
     }
-
-    public static RequestStatsEntity toEntity(RequestStats requestStats) {
-        RequestStatsEntity requestStatsEntity = new RequestStatsEntity();
-        requestStatsEntity.setUserLogin(requestStats.getLoginName());
-        requestStatsEntity.setCountOfRequests(requestStats.getCountOfRequests());
-        requestStatsEntity.setId(requestStats.getId());
-        return requestStatsEntity;
-    }
-
-    public static void mapJpaFields(RequestStats requestStats, RequestStatsEntity requestStatsEntity) {
-        requestStatsEntity.setUserLogin(requestStats.getLoginName());
-        requestStatsEntity.setCountOfRequests(requestStats.getCountOfRequests());
-        requestStatsEntity.setId(requestStats.getId());
-    }
 }

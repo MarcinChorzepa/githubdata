@@ -1,7 +1,6 @@
 package com.example.infrastructure.integration.requeststats;
 
 import com.example.domain.requeststats.domain.RequestStats;
-import com.example.domain.requeststats.domain.RequestStatsException;
 import com.example.domain.requeststats.infrastructure.RequestStatsRepository;
 import com.example.infrastructure.jparepository.RequestStatsEntity;
 import com.example.infrastructure.jparepository.RequestStatsJpaRepository;
@@ -14,22 +13,18 @@ public class RequestStatsRepositoryImpl implements RequestStatsRepository {
     private final RequestStatsJpaRepository requestStatsJpaRepository;
 
     @Override
-    public Optional<RequestStats> findRequestCountByLoginName(String loginName) {
+    public Optional<RequestStats> getStatsByLoginName(String loginName) {
         Optional<RequestStatsEntity> requestCountEntity = requestStatsJpaRepository.findByUserLogin(loginName);
         return requestCountEntity.map(RequestStatsMapper::fromEntity);
     }
 
     @Override
-    public void saveOrUpdateRequestCount(RequestStats requestStats) throws RequestStatsException {
-        if(requestStats.getId()==null) {
-            RequestStatsEntity requestStatsEntity = RequestStatsMapper.toEntity(requestStats);
-            requestStatsJpaRepository.save(requestStatsEntity);
-        }else {
-            Optional<RequestStatsEntity> requestCountEntity = requestStatsJpaRepository.findById(requestStats.getId());
-            requestCountEntity.map(entity -> {
-                RequestStatsMapper.mapJpaFields(requestStats, entity);
-                return entity;
-            }).orElseThrow(()->new RequestStatsException("Could not save stats in DB"));
+    public void saveOrUpdateStats(String loginName) {
+            Optional<RequestStatsEntity> requestCountEntity = requestStatsJpaRepository.findByUserLogin(loginName);
+            if(requestCountEntity.isPresent()) {
+                requestStatsJpaRepository.updateTheStatistics(loginName);
+            } else {
+                requestStatsJpaRepository.save(new RequestStatsEntity(loginName));
+            }
         }
-    }
 }

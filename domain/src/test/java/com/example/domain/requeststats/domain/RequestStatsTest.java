@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class RequestStatsTest {
-
+    private static final int ID = 1;
     private static final String USER_LOGIN = "TestUser";
     private static final long COUNT_OF_REQUESTS = 1L;
 
@@ -15,19 +15,16 @@ class RequestStatsTest {
 
     @BeforeEach
     void setUp() {
-        requestStats = new RequestStats(USER_LOGIN);
+        requestStats = new RequestStats(ID,USER_LOGIN,COUNT_OF_REQUESTS);
     }
 
     @Test
     void shouldBeAbleToCreateRequestCount() {
         assertNotNull(requestStats);
         assertEquals(COUNT_OF_REQUESTS, requestStats.getCountOfRequests());
+        assertEquals(USER_LOGIN, requestStats.getLoginName());
+        assertEquals(ID, requestStats.getId());
     }
 
-    @Test
-    void shouldBeAbleToAddRequestToTotalCount() {
-        requestStats.addRequestToCount();
-        assertEquals((COUNT_OF_REQUESTS + 1), requestStats.getCountOfRequests());
-    }
 
 }

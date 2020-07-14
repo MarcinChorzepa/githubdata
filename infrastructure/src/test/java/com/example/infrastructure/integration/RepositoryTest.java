@@ -11,11 +11,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.catchThrowable;
 
 import java.util.Optional;
 
@@ -35,44 +33,30 @@ class RepositoryTest {
 
     @BeforeEach
     void setUp() {
-        RequestStatsEntity requestStatsEntity = new RequestStatsEntity();
-        requestStatsEntity.setUserLogin(USER_LOGIN);
-        requestStatsEntity.setCountOfRequests(1L);
+        RequestStatsEntity requestStatsEntity = new RequestStatsEntity(USER_LOGIN);
         jpaRepository.save(requestStatsEntity);
 
     }
 
     @Test
     void shouldWorkIfNotPresent() {
-        Optional<RequestStats> result = requestStatsRepository.findRequestCountByLoginName(USER_LOGIN_NOT_PRESENT);
+        Optional<RequestStats> result = requestStatsRepository.getStatsByLoginName(USER_LOGIN_NOT_PRESENT);
         assertThat(result).isNotPresent();
     }
 
     @Test
     void shouldFindRecordByUserLogin() {
-        Optional<RequestStats> result = requestStatsRepository.findRequestCountByLoginName(USER_LOGIN);
+        Optional<RequestStats> result = requestStatsRepository.getStatsByLoginName(USER_LOGIN);
         assertThat(result).isPresent();
         assertThat(result.get().getLoginName()).isEqualTo(USER_LOGIN);
         assertThat(result.get().getCountOfRequests()).isEqualTo(1L);
         assertThat(result.get().getCountOfRequests()).isNotNegative();
-        assertThat(result.get().getId()).isNotNull();
-    }
-
-    @Test
-    void shouldReturnExceptionIfSaveTheRequestCountThatExists() {
-        RequestStats requestStats = new RequestStats(USER_LOGIN) ;
-        Throwable throwable = catchThrowable(() -> requestStatsRepository.saveOrUpdateRequestCount(requestStats));
-        assertThat(throwable)
-                .isNotNull()
-                .isInstanceOf(DataIntegrityViolationException.class);
     }
 
 
     @Test
-    void shouldUpdateIfRecordExists() throws RequestStatsException {
-        RequestStats requestStats = requestStatsRepository.findRequestCountByLoginName(USER_LOGIN).get();
-        requestStats.addRequestToCount();
-        requestStatsRepository.saveOrUpdateRequestCount(requestStats);
+    void shouldUpdateIfRecordExists() {
+        requestStatsRepository.saveOrUpdateStats(USER_LOGIN);
         Optional<RequestStatsEntity> requestCountEntity = jpaRepository.findByUserLogin(USER_LOGIN);
         assertThat(requestCountEntity).isPresent();
         assertThat(requestCountEntity.get().getUserLogin()).isEqualTo(USER_LOGIN);
@@ -80,9 +64,8 @@ class RepositoryTest {
     }
 
     @Test
-    void shouldCreateRecordIfIdIsNull() throws RequestStatsException {
-        RequestStats requestStats = new RequestStats(USER_LOGIN_NOT_PRESENT);
-        requestStatsRepository.saveOrUpdateRequestCount(requestStats);
+    void shouldCreateRecordIfIdIsNull() {
+        requestStatsRepository.saveOrUpdateStats(USER_LOGIN_NOT_PRESENT);
         Optional<RequestStatsEntity> requestCountEntity = jpaRepository.findByUserLogin(USER_LOGIN_NOT_PRESENT);
         assertThat(requestCountEntity).isPresent();
         assertThat(requestCountEntity.get().getUserLogin()).isEqualTo(USER_LOGIN_NOT_PRESENT);
