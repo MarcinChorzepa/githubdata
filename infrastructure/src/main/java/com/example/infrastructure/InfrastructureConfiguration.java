@@ -2,7 +2,7 @@ package com.example.infrastructure;
 
 import com.example.domain.requeststats.infrastructure.RequestStatsRepository;
 import com.example.infrastructure.githubservice.GitHubService;
-import com.example.infrastructure.integration.RequestStatsRepositoryImpl;
+import com.example.infrastructure.integration.requeststats.RequestStatsRepositoryImpl;
 import com.example.infrastructure.jparepository.RequestStatsJpaRepository;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;

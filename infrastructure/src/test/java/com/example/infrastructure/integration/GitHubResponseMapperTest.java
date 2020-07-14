@@ -2,12 +2,12 @@ package com.example.infrastructure.integration;
 
 import com.example.domain.githubdata.domain.GitHubDetails;
 import com.example.infrastructure.githubservice.GitHubResponseJSON;
+import com.example.infrastructure.integration.github.GitHubResponseMapper;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class GitHubResponseMapperTest {
     private static final String AVATAR_URL = "http://avatar";

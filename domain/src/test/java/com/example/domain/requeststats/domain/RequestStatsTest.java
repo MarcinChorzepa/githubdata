@@ -21,13 +21,13 @@ class RequestStatsTest {
     @Test
     void shouldBeAbleToCreateRequestCount() {
         assertNotNull(requestStats);
-        assertEquals(requestStats.getCountOfRequests(), COUNT_OF_REQUESTS);
+        assertEquals(COUNT_OF_REQUESTS, requestStats.getCountOfRequests());
     }
 
     @Test
     void shouldBeAbleToAddRequestToTotalCount() {
         requestStats.addRequestToCount();
-        assertEquals(requestStats.getCountOfRequests(), (COUNT_OF_REQUESTS + 1));
+        assertEquals((COUNT_OF_REQUESTS + 1), requestStats.getCountOfRequests());
     }
 
 }
