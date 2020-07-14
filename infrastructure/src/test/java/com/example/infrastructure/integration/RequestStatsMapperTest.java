@@ -13,7 +13,7 @@ class RequestStatsMapperTest {
 
 
     @Test
-    void fromEntity() {
+    void shouldMapFieldsFromEntity() {
         RequestStatsEntity requestStatsEntity = prepareRequestStatsEntity();
         RequestStats result = RequestStatsMapper.fromEntity(requestStatsEntity);
         assertThat(result).isNotNull();
@@ -24,7 +24,7 @@ class RequestStatsMapperTest {
     }
 
     @Test
-    void toEntity() {
+    void shouldMapFieldsToEntity() {
         RequestStats requestStats = prepareRequestStats();
         RequestStatsEntity result = RequestStatsMapper.toEntity(requestStats);
         assertThat(result).isNotNull();
@@ -35,7 +35,7 @@ class RequestStatsMapperTest {
     }
 
     @Test
-    void mapJpaFields() {
+    void shouldMapFieldsFromDomainToEntity() {
         RequestStatsEntity requestStatsEntity = prepareRequestStatsEntity();
         RequestStats requestStats = RequestStatsMapper.fromEntity(requestStatsEntity);
         requestStats.addRequestToCount();

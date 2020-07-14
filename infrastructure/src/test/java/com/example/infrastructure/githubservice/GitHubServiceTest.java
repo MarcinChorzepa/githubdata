@@ -38,7 +38,7 @@ class GitHubServiceTest {
     }
 
     @Test
-    void getGithubDetails() {
+    void shouldBeAbleToReceiveDataFromEndpoint() {
         this.wireMockServer.stubFor(
                 WireMock.get(urlPathMatching("/users/([a-z]*)"))
                         .willReturn(aResponse()
