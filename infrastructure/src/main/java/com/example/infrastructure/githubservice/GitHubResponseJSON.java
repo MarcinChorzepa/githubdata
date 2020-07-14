@@ -1,6 +1,7 @@
 package com.example.infrastructure.githubservice;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ import java.io.Serializable;
  * class used as entity to get data from github
  */
 @Data
+@Builder
 public class GitHubResponseJSON implements Serializable{
 
     private static final long serialVersionUID = 1312788060345717062L;

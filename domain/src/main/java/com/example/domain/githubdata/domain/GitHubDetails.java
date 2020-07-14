@@ -1,24 +1,25 @@
 package com.example.domain.githubdata.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
-@Data
+@Builder
+@Getter
 public class GitHubDetails {
 
-    private String avatarUrl;
-    private String calculations;
-    private LocalDateTime createdAt;
-    private Long id;
-    private String login;
-    private String name;
-    private String type;
-    private int publicRepos;
-    private int followers;
+    private final String avatarUrl;
+    private final LocalDateTime createdAt;
+    private final Long id;
+    private final String login;
+    private final String name;
+    private final String type;
+    private final int publicRepos;
+    private final int followers;
+
 }
+
 
 /*
 *   "login": "MarcinChorzepa",
