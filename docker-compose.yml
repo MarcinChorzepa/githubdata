@@ -1,0 +1,16 @@
+version: '3'
+services:
+  database:
+    image: postgres:10
+    container_name: localPostgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: admin
+    volumes:
+      - postgres_data:/var/lib/postgres
+      - ./dbscripts/postgres:/docker-entrypoint-initdb.d
+volumes:
+  postgres_data:
