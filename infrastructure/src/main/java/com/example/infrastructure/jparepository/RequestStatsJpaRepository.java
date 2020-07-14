@@ -6,8 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface StatisticJpaRepository extends CrudRepository<StatisticEntity, Long> {
+public interface RequestStatsJpaRepository extends CrudRepository<RequestStatsEntity, Long> {
 
 
-    Optional<StatisticEntity> findByUserLogin(String loginName);
+    Optional<RequestStatsEntity> findByUserLogin(String loginName);
 }

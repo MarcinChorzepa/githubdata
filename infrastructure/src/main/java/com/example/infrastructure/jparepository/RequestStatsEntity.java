@@ -9,8 +9,8 @@ import java.util.Objects;
 @Entity
 @Getter
 @Setter
-@Table(name = "statistic")
-public class StatisticEntity {
+@Table(name = "request_stats")
+public class RequestStatsEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,7 +28,7 @@ public class StatisticEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        StatisticEntity that = (StatisticEntity) o;
+        RequestStatsEntity that = (RequestStatsEntity) o;
         return countOfRequests == that.countOfRequests &&
                 id.equals(that.id) &&
                 userLogin.equals(that.userLogin);
