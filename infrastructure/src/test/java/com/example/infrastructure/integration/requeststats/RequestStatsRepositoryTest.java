@@ -1,4 +1,4 @@
-package com.example.infrastructure.integration;
+package com.example.infrastructure.integration.requeststats;
 
 import com.example.domain.requeststats.domain.RequestStats;
 import com.example.domain.requeststats.domain.RequestStatsException;
@@ -21,7 +21,7 @@ import java.util.Optional;
 @DataJpaTest
 @AutoConfigureEmbeddedDatabase
 @ActiveProfiles({"test"})
-class RepositoryTest {
+class RequestStatsRepositoryTest {
     private static final String USER_LOGIN = "testUser";
     private static final String USER_LOGIN_NOT_PRESENT = "new user";
 

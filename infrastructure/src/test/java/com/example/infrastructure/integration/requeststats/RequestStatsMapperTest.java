@@ -1,4 +1,4 @@
-package com.example.infrastructure.integration;
+package com.example.infrastructure.integration.requeststats;
 
 import com.example.domain.requeststats.domain.RequestStats;
 import com.example.infrastructure.integration.requeststats.RequestStatsMapper;

@@ -1,4 +1,4 @@
-package com.example.infrastructure.integration;
+package com.example.infrastructure.integration.github;
 
 import com.example.domain.githubdata.domain.GitHubDetails;
 import com.example.infrastructure.githubservice.GitHubResponseJSON;

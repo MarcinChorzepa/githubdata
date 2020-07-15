@@ -11,6 +11,7 @@ public class GitHubRepositoryImpl implements GitHubDetailsRepository {
 
     @Override
     public GitHubDetails getGithubDetails(String loginName) {
-        return null;
+        return GitHubResponseMapper.fromEntity(gitHubService.getGithubDetails(loginName));
     }
+
 }

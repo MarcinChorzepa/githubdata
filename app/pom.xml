@@ -8,6 +8,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.example</groupId>
     <artifactId>app</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>app</name>
@@ -22,11 +23,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>com.example</groupId>-->
-<!--            <artifactId>infrastructure</artifactId>-->
-<!--            <version>${project.version}</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>org.example</groupId>
+            <artifactId>infrastructure</artifactId>
+            <version>${project.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -43,6 +44,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
     </dependencies>
 
     <build>

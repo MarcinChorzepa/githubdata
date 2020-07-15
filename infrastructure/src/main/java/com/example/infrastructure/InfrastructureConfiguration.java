@@ -1,7 +1,9 @@
 package com.example.infrastructure;
 
+import com.example.domain.githubdata.infrastructure.GitHubDetailsRepository;
 import com.example.domain.requeststats.infrastructure.RequestStatsRepository;
 import com.example.infrastructure.githubservice.GitHubService;
+import com.example.infrastructure.integration.github.GitHubRepositoryImpl;
 import com.example.infrastructure.integration.requeststats.RequestStatsRepositoryImpl;
 import com.example.infrastructure.jparepository.RequestStatsJpaRepository;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -24,4 +26,8 @@ public class InfrastructureConfiguration {
         return new GitHubService();
     }
 
+    @Bean
+    public GitHubDetailsRepository gitHubDetailsRepository(GitHubService gitHubService) {
+        return new GitHubRepositoryImpl(gitHubService);
+    }
 }

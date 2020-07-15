@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
-public class RequestStatsApi {
+public class RequestStatsDomainService {
 
     private final RequestStatsRepository requestStatsRepository;
 
