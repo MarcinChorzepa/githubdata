@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class RequestStatsMapperTest {
-    private static final int ID = 1;
     private static final String USER_LOGIN = "testUser";
     private static final Long COUNT_OF_REQUESTS = 1L;
 
@@ -20,7 +19,6 @@ class RequestStatsMapperTest {
         assertThat(result).isNotNull();
         assertThat(result.getCountOfRequests()).isEqualTo(COUNT_OF_REQUESTS);
         assertThat(result.getLoginName()).isEqualTo(USER_LOGIN);
-        assertThat(result.getId()).isEqualTo(ID);
 
     }
 
