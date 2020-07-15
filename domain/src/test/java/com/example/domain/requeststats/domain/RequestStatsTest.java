@@ -1,6 +1,7 @@
 package com.example.domain.requeststats.domain;
 
 
+import com.example.domain.ststatsrequests.domain.RequestStats;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

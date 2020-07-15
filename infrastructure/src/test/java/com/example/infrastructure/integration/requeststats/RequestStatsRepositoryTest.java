@@ -1,8 +1,7 @@
 package com.example.infrastructure.integration.requeststats;
 
-import com.example.domain.requeststats.domain.RequestStats;
-import com.example.domain.requeststats.domain.RequestStatsException;
-import com.example.domain.requeststats.infrastructure.RequestStatsRepository;
+import com.example.domain.ststatsrequests.domain.RequestStats;
+import com.example.domain.ststatsrequests.infrastructure.RequestStatsRepository;
 import com.example.infrastructure.InfrastructureConfiguration;
 import com.example.infrastructure.jparepository.RequestStatsEntity;
 import com.example.infrastructure.jparepository.RequestStatsJpaRepository;

@@ -1,4 +1,4 @@
-package com.example.app.controllers;
+package com.example.app.dto;
 
 import com.example.domain.githubdata.presentation.GithubDetailsCalculated;
 import lombok.Data;

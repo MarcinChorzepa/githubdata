@@ -1,4 +1,4 @@
-package com.example.domain.api;
+package com.example.domain;
 
 import com.example.domain.githubdata.infrastructure.GitHubDetailsRepository;
 import com.example.domain.githubdata.presentation.GitHubDetailsException;
