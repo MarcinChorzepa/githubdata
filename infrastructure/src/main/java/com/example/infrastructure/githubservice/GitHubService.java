@@ -14,7 +14,7 @@ public class GitHubService {
     @Value("${github.endpoint:https://api.github.com/users/}")
     private String githubUrl;
 
-    public GitHubResponseJSON getGithubDetails(String loginName) {
+    public GitHubResponseEntity getGithubDetails(String loginName) {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response
                 = restTemplate.getForEntity(githubUrl + loginName, String.class);
@@ -22,9 +22,9 @@ public class GitHubService {
     }
 
     @SneakyThrows
-    private GitHubResponseJSON parseResponseToObject(ResponseEntity<String> response) {
+    private GitHubResponseEntity parseResponseToObject(ResponseEntity<String> response) {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        return mapper.readValue(response.getBody(), GitHubResponseJSON.class);
+        return mapper.readValue(response.getBody(), GitHubResponseEntity.class);
     }
 }

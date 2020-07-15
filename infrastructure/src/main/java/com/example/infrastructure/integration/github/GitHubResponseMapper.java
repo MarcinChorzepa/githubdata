@@ -1,7 +1,7 @@
 package com.example.infrastructure.integration.github;
 
 import com.example.domain.githubdata.domain.GitHubDetails;
-import com.example.infrastructure.githubservice.GitHubResponseJSON;
+import com.example.infrastructure.githubservice.GitHubResponseEntity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,7 +13,7 @@ public class GitHubResponseMapper {
         throw new IllegalStateException("GitHubResponseMapper");
     }
 
-    public static GitHubDetails fromEntity(GitHubResponseJSON entity) {
+    public static GitHubDetails fromEntity(GitHubResponseEntity entity) {
         return GitHubDetails.builder()
                 .createdAt(toLocalDateTime(entity.getCreatedAt()))
                 .avatarUrl(entity.getAvatarUrl())

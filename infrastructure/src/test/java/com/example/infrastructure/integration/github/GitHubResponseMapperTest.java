@@ -1,8 +1,7 @@
 package com.example.infrastructure.integration.github;
 
 import com.example.domain.githubdata.domain.GitHubDetails;
-import com.example.infrastructure.githubservice.GitHubResponseJSON;
-import com.example.infrastructure.integration.github.GitHubResponseMapper;
+import com.example.infrastructure.githubservice.GitHubResponseEntity;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -34,8 +33,8 @@ class GitHubResponseMapperTest {
         assertThat(result.getFollowers()).isEqualTo(FOLLOWERS);
     }
 
-    private GitHubResponseJSON prepareGitHubJSON() {
-        return GitHubResponseJSON.builder()
+    private GitHubResponseEntity prepareGitHubJSON() {
+        return GitHubResponseEntity.builder()
                 .avatarUrl(AVATAR_URL)
                 .createdAt(CREATED_AT)
                 .id(ID)

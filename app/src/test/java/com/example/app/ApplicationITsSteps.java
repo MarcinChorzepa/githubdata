@@ -1,52 +1,60 @@
-package com.example.infrastructure.githubservice;
+package com.example.app;
+
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
+import cucumber.api.java.en.When;
+import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.json.JSONException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.*;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
-@SpringBootTest(classes = {GitHubService.class})
-@ActiveProfiles("test")
-class GitHubServiceTest {
-    private static final String LOGIN_NAME = "TestUser";
+@ContextConfiguration
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
+        classes = ITConfiguration.class)
+@TestPropertySource(locations = "classpath:application-IT.properties")
+@AutoConfigureEmbeddedDatabase
+@RequiredArgsConstructor
+public class ApplicationITsSteps {
 
-    private WireMockServer wireMockServer;
+    private  final TestRestTemplate restTemplate ;
 
-    @Autowired
-    private GitHubService gitHubService;
+    private  WireMockServer wireMockServer = new WireMockServer() ;
 
-    @BeforeEach
-    void setUpWireMockServer() {
-        wireMockServer = new WireMockServer();
+
+    @When("^User \"([^\"]*)\" read github data$")
+    public void readGithubData(String userLogin) {
         wireMockServer.start();
-    }
-
-    @AfterEach
-    void stopWireMockServer() {
-        wireMockServer.stop();
-    }
-
-    @Test
-    void shouldBeAbleToReceiveDataFromEndpoint() {
         this.wireMockServer.stubFor(
                 WireMock.get(urlPathMatching("/users/([a-z]*)"))
                         .willReturn(aResponse()
                                 .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
-                                .withBody(prepareExpectedResponse())));
-        GitHubResponseEntity json = gitHubService.getGithubDetails(LOGIN_NAME);
-        assertThat(json).isNotNull();
-        assertThat(json.getLogin()).isEqualTo(LOGIN_NAME);
+                                .withBody(prepareExpectedResponse(userLogin))));
+
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        ResponseEntity<String> responseEntity = restTemplate
+                .getForEntity("/users/" + userLogin, String.class);
+
+        assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        wireMockServer.stop();
     }
 
-    private String prepareExpectedResponse() {
+
+
+    private String prepareExpectedResponse(String loginName) {
         return String.format("{\"login\":\"%s\",\"id\":14186612,\"node_id\":\"MDQ6VXNlcjE0MTg2NjEy\"," +
                 "\"avatar_url\":\"https://avatars3.githubusercontent.com/u/14186612?v=4\",\"gravatar_id\":\"\"" +
                 ",\"url\":\"https://api.github.com/users/MarcinChorzepa\",\"html_url\":\"https://github.com/MarcinChorzepa\"" +
@@ -62,7 +70,6 @@ class GitHubServiceTest {
                 "\"site_admin\":false,\"name\":\"Marcin\",\"company\":null,\"blog\":\"\",\"location\":null,\"email\":null," +
                 "\"hireable\":null,\"bio\":null,\"twitter_username\":null,\"public_repos\":19,\"public_gists\":0," +
                 "\"followers\":0,\"following\":0,\"created_at\":\"2015-09-08T19:51:37Z\"," +
-                "\"updated_at\":\"2020-05-29T19:02:18Z\"}",LOGIN_NAME);
+                "\"updated_at\":\"2020-05-29T19:02:18Z\"}",loginName);
     }
-
 }

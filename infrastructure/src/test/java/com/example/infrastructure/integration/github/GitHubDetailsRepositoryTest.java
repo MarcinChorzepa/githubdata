@@ -2,8 +2,6 @@ package com.example.infrastructure.integration.github;
 
 import com.example.domain.githubdata.domain.GitHubDetails;
 import com.example.domain.githubdata.infrastructure.GitHubDetailsRepository;
-import com.example.infrastructure.InfrastructureConfiguration;
-import com.example.infrastructure.githubservice.GitHubResponseJSON;
 import com.example.infrastructure.githubservice.GitHubService;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
 import static com.github.tomakehurst.wiremock.client.WireMock.urlPathMatching;
