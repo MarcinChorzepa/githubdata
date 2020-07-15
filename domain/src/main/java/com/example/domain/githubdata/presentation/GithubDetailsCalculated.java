@@ -2,10 +2,12 @@ package com.example.domain.githubdata.presentation;
 
 import com.example.domain.githubdata.domain.GitHubDetails;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
+@Getter
 public class GithubDetailsCalculated {
     private final String avatarUrl;
     private final LocalDateTime createdAt;

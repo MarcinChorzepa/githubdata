@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Import;
 
 @Configuration
 @Import({InfrastructureConfiguration.class})
-public class AppConfiguration {
+public class DomainConfiguration {
 
     @Bean
     public GitHubDomainService gitHubDomainService(GitHubDetailsRepository gitHubDetailsRepository) {
