@@ -1,4 +1,4 @@
-package com.example.domain.requeststats.domain;
+package com.example.domain.ststatsrequests.presentation;
 
 public class RequestStatsException extends Exception {
 

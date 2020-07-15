@@ -1,7 +1,6 @@
 package com.example.infrastructure.integration.requeststats;
 
-import com.example.domain.requeststats.domain.RequestStats;
-import com.example.infrastructure.integration.requeststats.RequestStatsMapper;
+import com.example.domain.ststatsrequests.domain.RequestStats;
 import com.example.infrastructure.jparepository.RequestStatsEntity;
 import org.junit.jupiter.api.Test;
 

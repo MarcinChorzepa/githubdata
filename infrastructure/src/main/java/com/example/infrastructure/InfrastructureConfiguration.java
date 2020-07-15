@@ -1,7 +1,7 @@
 package com.example.infrastructure;
 
 import com.example.domain.githubdata.infrastructure.GitHubDetailsRepository;
-import com.example.domain.requeststats.infrastructure.RequestStatsRepository;
+import com.example.domain.ststatsrequests.infrastructure.RequestStatsRepository;
 import com.example.infrastructure.githubservice.GitHubService;
 import com.example.infrastructure.integration.github.GitHubRepositoryImpl;
 import com.example.infrastructure.integration.requeststats.RequestStatsRepositoryImpl;

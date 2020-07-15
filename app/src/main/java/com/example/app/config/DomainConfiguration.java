@@ -1,9 +1,9 @@
-package com.example.app;
+package com.example.app.config;
 
-import com.example.domain.api.GitHubDomainService;
-import com.example.domain.api.RequestStatsDomainService;
+import com.example.domain.GitHubDomainService;
+import com.example.domain.StatsRequestsDomainService;
 import com.example.domain.githubdata.infrastructure.GitHubDetailsRepository;
-import com.example.domain.requeststats.infrastructure.RequestStatsRepository;
+import com.example.domain.ststatsrequests.infrastructure.RequestStatsRepository;
 import com.example.infrastructure.InfrastructureConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ public class DomainConfiguration {
     }
 
     @Bean
-    public RequestStatsDomainService requestStatsDomainService(RequestStatsRepository requestStatsRepository) {
-        return new RequestStatsDomainService(requestStatsRepository);
+    public StatsRequestsDomainService requestStatsDomainService(RequestStatsRepository requestStatsRepository) {
+        return new StatsRequestsDomainService(requestStatsRepository);
     }
 }

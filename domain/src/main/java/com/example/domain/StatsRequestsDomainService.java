@@ -1,14 +1,14 @@
-package com.example.domain.api;
+package com.example.domain;
 
-import com.example.domain.requeststats.domain.RequestStats;
-import com.example.domain.requeststats.domain.RequestStatsException;
-import com.example.domain.requeststats.infrastructure.RequestStatsRepository;
+import com.example.domain.ststatsrequests.domain.RequestStats;
+import com.example.domain.ststatsrequests.presentation.RequestStatsException;
+import com.example.domain.ststatsrequests.infrastructure.RequestStatsRepository;
 import lombok.RequiredArgsConstructor;
 
 import javax.transaction.Transactional;
 
 @RequiredArgsConstructor
-public class RequestStatsDomainService {
+public class StatsRequestsDomainService {
 
     private final RequestStatsRepository requestStatsRepository;
 

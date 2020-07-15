@@ -1,6 +1,6 @@
-package com.example.domain.requeststats.infrastructure;
+package com.example.domain.ststatsrequests.infrastructure;
 
-import com.example.domain.requeststats.domain.RequestStats;
+import com.example.domain.ststatsrequests.domain.RequestStats;
 import java.util.Optional;
 
 public interface RequestStatsRepository {
