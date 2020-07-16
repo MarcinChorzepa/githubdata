@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "78ef55bf-6082-4557-9d47-2fe223fbb3b2",
+		"name": "Zadanie",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET - userDetails",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.github.com/users/MarcinChorzepa",
+					"protocol": "https",
+					"host": [
+						"api",
+						"github",
+						"com"
+					],
+					"path": [
+						"users",
+						"MarcinChorzepa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - github data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/users/MarcinChorzepa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"MarcinChorzepa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET - statistics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/statistics/MarcinChorzepa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"statistics",
+						"MarcinChorzepa"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

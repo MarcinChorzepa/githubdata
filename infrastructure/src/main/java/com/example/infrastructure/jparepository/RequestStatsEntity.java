@@ -16,10 +16,10 @@ public class RequestStatsEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "user_login", unique = true)
+    @Column(name = "login", unique = true)
     private String userLogin;
 
-    @Column(name = "count_of_requests")
+    @Column(name = "request_count")
     private long countOfRequests;
 
     public RequestStatsEntity(String userLogin) {
