@@ -2,8 +2,10 @@ package com.example.app.dto;
 
 import com.example.domain.githubdata.presentation.GithubDetailsCalculated;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
 public class GitHubUserDetailsResponse {
 
     private String avatarUrl;

@@ -1,15 +1,19 @@
 package com.example.app;
 
 
+import com.example.app.dto.GitHubUserDetailsResponse;
+import com.example.app.dto.RequestStatsResponse;
+import com.example.infrastructure.githubservice.GitHubResponseEntity;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
+import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.json.JSONException;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import lombok.SneakyThrows;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
@@ -18,6 +22,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.array;
 
 @ContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
@@ -27,7 +32,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RequiredArgsConstructor
 public class ApplicationITsSteps {
 
-    private  final TestRestTemplate restTemplate ;
+    private final TestRestTemplate restTemplate ;
+    private final CucumberWorld cucumberWorld;
 
     private  WireMockServer wireMockServer = new WireMockServer() ;
 
@@ -41,18 +47,39 @@ public class ApplicationITsSteps {
                                 .withHeader("Content-Type", MediaType.APPLICATION_JSON_VALUE)
                                 .withBody(prepareExpectedResponse(userLogin))));
 
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-
         ResponseEntity<String> responseEntity = restTemplate
                 .getForEntity("/users/" + userLogin, String.class);
-
+        cucumberWorld.gitHubUserDetailsResponse = parseResponseToObject(responseEntity, GitHubUserDetailsResponse.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         wireMockServer.stop();
     }
 
+    @Then("^Response is not null , Login is \"([^\"]*)\" and calculation is equal \"([^\"]*)\"$")
+    public void responseLoginAndCalculation(String login, double calculate) {
+        assertThat(cucumberWorld.gitHubUserDetailsResponse).isNotNull();
+        assertThat(cucumberWorld.gitHubUserDetailsResponse.getLogin()).isEqualTo(login);
+        assertThat(cucumberWorld.gitHubUserDetailsResponse.getCalculations()).isEqualTo(calculate);
 
+    }
+
+    @Then("^Count of request for user \"([^\"]*)\" is equals to \"([^\"]*)\" and has been saved in DB")
+    public void countOfRequestForUser(String userLogin, Long countOfRequests) {
+        ResponseEntity<String> responseEntity = restTemplate
+                .getForEntity("/statistics/" + userLogin, String.class);
+        cucumberWorld.requestStatsResponse = parseResponseToObject(responseEntity, RequestStatsResponse.class);
+
+        assertThat(cucumberWorld.requestStatsResponse).isNotNull();
+        assertThat(cucumberWorld.requestStatsResponse.getLoginName()).isEqualTo(userLogin);
+        assertThat(cucumberWorld.requestStatsResponse.getCountOfRequests()).isEqualTo(countOfRequests);
+
+    }
+
+    @SneakyThrows
+    private  <T> T parseResponseToObject(ResponseEntity<String> response, Class<T> valueTypeClass) {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return mapper.readValue(response.getBody(), valueTypeClass);
+    }
 
     private String prepareExpectedResponse(String loginName) {
         return String.format("{\"login\":\"%s\",\"id\":14186612,\"node_id\":\"MDQ6VXNlcjE0MTg2NjEy\"," +
