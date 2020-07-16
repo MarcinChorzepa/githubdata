@@ -34,9 +34,8 @@ Dla każdego wywołania usługi wartość REQUEST_COUNT powinna być zwiększana
 
 Current solution is the proposition of implementation Domain Driven Design 
 technology stack :
-- Spring Boot2 (maven) (with Lombok)
+- Spring Boot 2 (maven)
 - PostgresDB
-- RestTemplate for getting data from github
 - Docker
 test:
 - Junit5
