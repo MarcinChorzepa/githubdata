@@ -12,14 +12,15 @@ Stwórz prosty RESTowy serwis, który zwróci informacje
 -	Data stworzenia
 -	Obliczenia <br/>
 **API serwisu powinno wyglądać jak poniżej:** <br/>
-<code> GET /users/{login} <br/>
+``` GET /users/{login} 
 {"id": "...", 
 "login": "...",
 "name": "…",
 "type": "...",
 "avatarUrl": „”,
 "createdAt": "..."
-"calculations": "..."}</code>
+"calculations": "..."}
+```
 
 Serwis powinien pobrać dane z **https://api.github.com/users/{login}** (np. https://api.github.com/users/octocat) <br/>
 i przekazać je w API. W polu calculations powinien być zwrócony wynik działania <br/>
@@ -30,7 +31,7 @@ Baza danych powinna zawierać dwie kolumny: LOGIN oraz REQUEST_COUNT. <br/>
 Dla każdego wywołania usługi wartość REQUEST_COUNT powinna być zwiększana o jeden.
 
 
-## Architecture
+## Introduction
 
 Current solution is the proposition of implementation Domain Driven Design 
 technology stack :
@@ -47,9 +48,35 @@ test:
 Recording requests is done by asynchronous method every time when the request is started.
 To avoid multithreading issues the count is done on database (only the method chceking if exists is synchronized) 
 Additional endpoint has been added to check thie value of the request count 
-#### docker-compose
-You can run docker-compose.yml to start the PostgresDB
-<code>docker-compose up -d</code>
+#### How to run
+##### docker-compose 
+You can run docker-compose.yml to start the PostgresDB. It will start on standard port 5432 so be sure that your local instsance is turned off <br/>
+```
+docker-compose up -d
+```
+##### maven
+Runnable file is in the app module
+## Usage :
+
+endpoints URL is
+
+http://localhost:8080/users/
+http://localhost:8080/statistics/
+
+### Get github data 
+
+```
+curl -X GET \
+  http://localhost:8080/users/{userLogin}
+}'
+```
+
+```
+curl -X GET \
+  http://localhost:8080/statistics/{userLogin}
+}'
+```
+## Architecture
 ### domain
 
 - contains all business logic; mandatory information for a 2 domains githubdata and statsrequests ( in future can be extend with validation rules of users inputs ; format of fields and so on)
