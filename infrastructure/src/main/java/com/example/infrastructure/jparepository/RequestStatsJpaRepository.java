@@ -14,6 +14,8 @@ public interface RequestStatsJpaRepository extends CrudRepository<RequestStatsEn
 
     Optional<RequestStatsEntity> findByUserLogin(String loginName);
 
+    boolean existsByUserLogin(String loginName);
+
     @Modifying(clearAutomatically = true)
     @Query("update RequestStatsEntity stat set stat.countOfRequests = stat.countOfRequests+1 " +
             "where stat.userLogin = :userLogin")

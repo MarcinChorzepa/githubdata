@@ -12,6 +12,10 @@ public class StatsRequestsDomainService {
 
     private final RequestStatsRepository requestStatsRepository;
 
+    /**
+     * method is synchonized to be sure that threads will not try to find user before it is processed by different thread
+     * @param loginName
+     */
     @Transactional
     public synchronized void saveStatisticsInDB(String loginName) {
         requestStatsRepository.saveOrUpdateStats(loginName);

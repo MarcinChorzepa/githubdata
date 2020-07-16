@@ -20,8 +20,7 @@ public class RequestStatsRepositoryImpl implements RequestStatsRepository {
 
     @Override
     public void saveOrUpdateStats(String loginName) {
-            Optional<RequestStatsEntity> requestCountEntity = requestStatsJpaRepository.findByUserLogin(loginName);
-            if(requestCountEntity.isPresent()) {
+            if(requestStatsJpaRepository.existsByUserLogin(loginName)) {
                 requestStatsJpaRepository.updateTheStatistics(loginName);
             } else {
                 requestStatsJpaRepository.save(new RequestStatsEntity(loginName));
