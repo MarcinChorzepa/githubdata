@@ -37,13 +37,20 @@ technology stack :
 - Spring Boot2 (maven) (with Lombok)
 - PostgresDB
 - RestTemplate for getting data from github
+- Docker
 test:
 - Junit5
 - WireMock
 - EmbeddedPostgres
 - Cucumber
 
-
+2 domains one to get data from Github , second to put records to DB
+Recording requests is done by asynchronous method every time when the request is started.
+To avoid multithreading issues the count is done on database (only the method chceking if exists is synchronized) 
+Additional endpoint has been added to check thie value of the request count 
+#### docker-compose
+You can run docker-compose.yml to start the PostgresDB
+<code>docker-compose up -d</code>
 ### domain
 
 - contains all business logic; mandatory information for a 2 domains githubdata and statsrequests ( in future can be extend with validation rules of users inputs ; format of fields and so on)
