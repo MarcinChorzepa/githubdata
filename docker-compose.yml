@@ -1,10 +1,12 @@
-version: '3'
+version: '3.7'
 services:
   database:
     image: postgres:10
     container_name: localPostgres
     ports:
-      - "5432:5432"
+      - 5432:5432
+    networks:
+      - webnet
     environment:
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
@@ -12,5 +14,21 @@ services:
     volumes:
       - postgres_data:/var/lib/postgres
       - ./dbscripts/postgres:/docker-entrypoint-initdb.d
+
+  backend:
+    container_name: backend
+    build:
+      context: ./app
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localPostgres:5432/postgres
+    networks:
+      - webnet
 volumes:
   postgres_data:
+networks:
+  webnet:
