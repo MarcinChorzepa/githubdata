@@ -72,21 +72,23 @@ Runnable file is in the app module
 
 endpoints URL is
 
-http://localhost:8080/users/
+http://localhost:8080/users/ <br/>
 http://localhost:8080/statistics/
 
-### Get github data 
+### Documentation 
+Swagger
+http://localhost:8080/swagger-ui.html
 
 ```
 curl -X GET \
   http://localhost:8080/users/{userLogin}
-}'
+}
 ```
 
 ```
 curl -X GET \
   http://localhost:8080/statistics/{userLogin}
-}'
+}
 ```
 ## Architecture
 ### domain
