@@ -18,7 +18,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(classes = {GitHubService.class, GitHubRepositoryImpl.class})
 @ActiveProfiles("test")
-public class GitHubDetailsRepositoryTest {
+class GitHubDetailsRepositoryTest {
     private static final String LOGIN_NAME = "TestUser";
 
     @Autowired
