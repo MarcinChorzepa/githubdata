@@ -12,18 +12,20 @@ public class StatsRequestsDomainService {
 
     private final RequestStatsRepository requestStatsRepository;
 
-    /**
-     * method is synchonized to be sure that threads will not try to find user before it is processed by different thread
-     * @param loginName
-     */
+
     @Transactional
-    public synchronized void saveStatisticsInDB(String loginName) {
-        requestStatsRepository.saveOrUpdateStats(loginName);
+    public void saveStatisticsInDB(String loginName) {
+        requestStatsRepository.updateTheStatistics(loginName);
     }
 
     @Transactional
     public RequestStats getStatsByLoginName(String loginName) throws RequestStatsException {
         return requestStatsRepository.getStatsByLoginName(loginName)
                 .orElseThrow(() -> new RequestStatsException("Record does not exists"));
+    }
+
+    @Transactional
+    public void createNewLoginInStatistics(String loginName) {
+        requestStatsRepository.createNewLoginInStatistics(loginName);
     }
 }

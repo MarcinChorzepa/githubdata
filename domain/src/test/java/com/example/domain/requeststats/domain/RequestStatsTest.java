@@ -16,7 +16,7 @@ class RequestStatsTest {
 
     @BeforeEach
     void setUp() {
-        requestStats = new RequestStats(ID,USER_LOGIN,COUNT_OF_REQUESTS);
+        requestStats = new RequestStats(USER_LOGIN,COUNT_OF_REQUESTS);
     }
 
     @Test
@@ -24,7 +24,6 @@ class RequestStatsTest {
         assertNotNull(requestStats);
         assertEquals(COUNT_OF_REQUESTS, requestStats.getCountOfRequests());
         assertEquals(USER_LOGIN, requestStats.getLoginName());
-        assertEquals(ID, requestStats.getId());
     }
 
 

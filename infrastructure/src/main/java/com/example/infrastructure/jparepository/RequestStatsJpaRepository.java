@@ -6,18 +6,14 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
 
 @Repository
-public interface RequestStatsJpaRepository extends CrudRepository<RequestStatsEntity, Long> {
+public interface RequestStatsJpaRepository extends CrudRepository<RequestStatsEntity, String> {
 
-
-    Optional<RequestStatsEntity> findByUserLogin(String loginName);
-
-    boolean existsByUserLogin(String loginName);
 
     @Modifying(clearAutomatically = true)
     @Query("update RequestStatsEntity stat set stat.countOfRequests = stat.countOfRequests+1 " +
             "where stat.userLogin = :userLogin")
     void updateTheStatistics(@Param("userLogin") String userLogin);
+
 }

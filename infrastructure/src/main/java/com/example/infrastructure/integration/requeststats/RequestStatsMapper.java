@@ -10,8 +10,7 @@ public class RequestStatsMapper {
     }
 
     public static RequestStats fromEntity(RequestStatsEntity requestStatsEntity) {
-        return new RequestStats(requestStatsEntity.getId(),
-                requestStatsEntity.getUserLogin(),
+        return new RequestStats(requestStatsEntity.getUserLogin(),
                 requestStatsEntity.getCountOfRequests());
     }
 }

@@ -12,10 +12,8 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Table(name = "request_stats")
 public class RequestStatsEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
 
+    @Id
     @Column(name = "login", unique = true)
     private String userLogin;
 
