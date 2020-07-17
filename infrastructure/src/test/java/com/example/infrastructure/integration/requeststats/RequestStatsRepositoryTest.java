@@ -55,20 +55,36 @@ class RequestStatsRepositoryTest {
 
     @Test
     void shouldUpdateIfRecordExists() {
-        requestStatsRepository.saveOrUpdateStats(USER_LOGIN);
-        Optional<RequestStatsEntity> requestCountEntity = jpaRepository.findByUserLogin(USER_LOGIN);
+        requestStatsRepository.updateTheStatistics(USER_LOGIN);
+        Optional<RequestStatsEntity> requestCountEntity = jpaRepository.findById(USER_LOGIN);
         assertThat(requestCountEntity).isPresent();
         assertThat(requestCountEntity.get().getUserLogin()).isEqualTo(USER_LOGIN);
         assertThat(requestCountEntity.get().getCountOfRequests()).isEqualTo(2L);
     }
 
     @Test
-    void shouldCreateRecordIfIdIsNull() {
-        requestStatsRepository.saveOrUpdateStats(USER_LOGIN_NOT_PRESENT);
-        Optional<RequestStatsEntity> requestCountEntity = jpaRepository.findByUserLogin(USER_LOGIN_NOT_PRESENT);
+    void shouldNotUpdateRecordWithNotExistingLogin() {
+        requestStatsRepository.updateTheStatistics(USER_LOGIN_NOT_PRESENT);
+        Optional<RequestStatsEntity> requestCountEntity = jpaRepository.findById(USER_LOGIN_NOT_PRESENT);
+        assertThat(requestCountEntity).isNotPresent();
+    }
+
+    @Test
+    void shouldNotCreateNewIfUserExists() {
+        Optional<RequestStatsEntity> requestCountEntity = jpaRepository.findById(USER_LOGIN);
+        requestStatsRepository.createNewLoginInStatistics(USER_LOGIN);
+        Optional<RequestStatsEntity> requestCountEntityAfter = jpaRepository.findById(USER_LOGIN);
+        assertThat(requestCountEntityAfter).isPresent();
+        assertThat(requestCountEntityAfter.get().getCountOfRequests()).isEqualTo(requestCountEntity.get().getCountOfRequests());
+    }
+
+    @Test
+    void shouldCreateNewIfUserDoeNotExists() {
+        requestStatsRepository.createNewLoginInStatistics(USER_LOGIN_NOT_PRESENT);
+        Optional<RequestStatsEntity> requestCountEntity = jpaRepository.findById(USER_LOGIN_NOT_PRESENT);
         assertThat(requestCountEntity).isPresent();
-        assertThat(requestCountEntity.get().getUserLogin()).isEqualTo(USER_LOGIN_NOT_PRESENT);
         assertThat(requestCountEntity.get().getCountOfRequests()).isEqualTo(1L);
     }
+
 
 }

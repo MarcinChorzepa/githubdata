@@ -7,4 +7,8 @@ public class RequestStatsException extends Exception {
     public RequestStatsException(String message) {
         super(message);
     }
+
+    public RequestStatsException(String message, Throwable cause) {
+        super(message,cause);
+    }
 }

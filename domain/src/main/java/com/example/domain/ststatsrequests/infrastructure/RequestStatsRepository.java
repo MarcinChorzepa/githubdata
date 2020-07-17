@@ -7,5 +7,7 @@ public interface RequestStatsRepository {
 
     Optional<RequestStats> getStatsByLoginName(String loginName);
 
-    void saveOrUpdateStats(String loginName);
+    void updateTheStatistics(String loginName);
+
+    void createNewLoginInStatistics(String loginName);
 }
