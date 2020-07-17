@@ -3,7 +3,6 @@ package com.example.app;
 
 import com.example.app.dto.GitHubUserDetailsResponse;
 import com.example.app.dto.RequestStatsResponse;
-import com.example.infrastructure.githubservice.GitHubResponseEntity;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.tomakehurst.wiremock.WireMockServer;
@@ -11,7 +10,6 @@ import com.github.tomakehurst.wiremock.client.WireMock;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import io.zonky.test.db.AutoConfigureEmbeddedDatabase;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +20,6 @@ import org.springframework.test.context.TestPropertySource;
 
 import static com.github.tomakehurst.wiremock.client.WireMock.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.array;
 
 @ContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,

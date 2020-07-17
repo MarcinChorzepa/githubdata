@@ -61,11 +61,12 @@ first you will have to build whole project in order described in pom.xml
 After that you can run docker-compose command which will start db and backend
 
 ##### docker-compose 
-You can run docker-compose.yml to start the PostgresDB. It will start on standard port 5432 so be sure that your local instsance is turned off <br/>
+You can run docker-compose.yml to start application and PostgresDB. It will start application on 8080 and DB on standard port 5432 so be sure that your local instsance is turned off <br/>
 ```
 docker-compose up -d
 ```
-There is also docker-compose in ./dbscripts directory - you can use it to start only the DB and run application manually
+You might need to rebuild the composition ```docker-compose build --no-cache``` <br/>
+There is also docker-compose in ./database directory - you can use it to start only the DB and run application manually
 ##### maven
 Runnable file is in the app module
 ## Usage :
