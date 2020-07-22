@@ -1,4 +1,4 @@
-# Interview project for EMPIK 
+# DDD project
 
 ## Description 
     
@@ -52,7 +52,7 @@ Additional endpoint has been added to check thie value of the request count
 ##### Build
 first you will have to build whole project in order described in pom.xml
 ```aidl
-    <modules>
+                      <modules>
         <module>domain</module>
         <module>infrastructure</module>
         <module>app</module>
